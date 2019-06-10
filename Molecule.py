@@ -1,6 +1,6 @@
-from element import element
+from Element import Element
 
-class molecule:
+class Molecule:
     def __init__(self,formula=None,name=None,coeff=1):
         if name:
             self.name = formula
