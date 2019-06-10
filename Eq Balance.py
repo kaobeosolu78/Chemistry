@@ -1,8 +1,8 @@
-from element import element
-from molecule import molecule
+from Element import Element
+from Molecule import Molecule
 from operator import itemgetter
 
-class equation:
+class Equation:
     def __init__(self,products,reactants,balanced):
         self.reactants = reactants
         self.products = products
@@ -36,4 +36,4 @@ class equation:
     
 
 
-water = (equation([molecule("hydrogen","H2",2),molecule("oxygen","O2")],[molecule("water","H2O",2)],True)).check_balance()
+water = (Equation([Molecule("hydrogen","H2",2),Molecule("oxygen","O2")],[Molecule("water","H2O",2)],True)).check_balance()
