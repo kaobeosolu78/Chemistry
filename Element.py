@@ -1,4 +1,4 @@
-class element:
+class Element:
     def __init__(self,formula,coeff=1):
         self.formula = formula
         self.coeff = coeff
