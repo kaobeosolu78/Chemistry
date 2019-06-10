@@ -1,242 +1,38 @@
-class element:
-    elements = ["Ac Actinium
-
-Ag Silver
-
-Al Aluminum
-
-Am Americium
-
-Ar Argon
-
-As Arsenic
-
-At Astatine
-
-Au Gold
-
-B Boron
-
-Ba Barium
-
-Be Beryllium
-
-Bh Bohrium
-
-Bi Bismuth
-
-Bk Berkelium
-
-Br Bromine
-
-C Carbon
-
-Ca Calcium
-
-Cd Cadmium
-
-Ce Cerium
-
-Cf Californium
-
-Cl Chlorine
-
-Cm Curium
-
-Cn Copernicium
-
-Co Cobalt
-
-Cr Chromium
-
-Cs Cesium
-
-Cu Copper
-
-Db Dubnium
-
-Ds Darmstadtium
-
-Dy Dysprosium
-
-Er Erbium
-
-Es Einsteinium
-
-Eu Europium
-
-F Fluorine
-
-Fe Iron
-
-Fl Flerovium
-
-Fm Fermium
-
-Fr Francium
-
-Ga Gallium
-
-Gd Gadolinium
-
-Ge Germanium
-
-H Hydrogen
-
-He Helium
-
-Hf Hafnium
-
-Hg Mercury
-
-Ho Holmium
-
-Hs Hassium
-
-I Iodine
-
-In Indium
-
-Ir Iridium
-
-K Potassium
-
-Kr Krypton
-
-La Lanthanum
-
-Li Lithium
-
-Lr Lawrencium
-
-Lu Lutetium
-
-Lv Livermorium
-
-Md Mendelevium
-
-Mg Magnesium
-
-Mn Manganese
-
-Mo Molybdenum
-
-Mt Meitnerium
-
-N Nitrogen
-
-Na Sodium
-
-Nb Niobium
-
-Nd Neodymium
-
-Ne Neon
-
-Ni Nickel
-
-No Nobelium
-
-Np Neptunium
-
-O Oxygen
-
-Os Osmium
-
-P Phosphorus
-
-Pa Protactinium
-
-Pb Lead
-
-Pd Palladium
-
-Pm Promethium
-
-Po Polonium
-
-Pr Praseodymium
-
-Pt Platinum
-
-Pu Plutonium
-
-Ra Radium
-
-Rb Rubidium
-
-Re Rhenium
-
-Rf Rutherfordium
-
-Rg Roentgenium
-
-Rh Rhodium
-
-Rn Radon
-
-Ru Ruthenium
-
-S Sulfur
-
-Sb Antimony
-
-Sc Scandium
-
-Se Selenium
-
-Sg Seaborgium
-
-Si Silicon
-
-Sm Samarium
-
-Sn Tin
-
-Sr Strontium
-
-Ta Tantalum
-
-Tb Terbium
-
-Tc Technetium
-
-Te Tellurium
-
-Th Thorium
-
-Ti Titanium
-
-Tl Thallium
-
-Tm Thulium
-
-U Uranium
-
-Uuo Ununoctium
-
-Uup Ununpentium
-
-Uus Ununseptium
-
-Uut Ununtrium
-
-V Vanadium
-
-W Tungsten
-
-Xe Xenon
-
-Y Yttrium
-
-Yb Ytterbium
-
-Zn Zinc
-
-Zr Zirconium"]
+from element import element
+from molecule import molecule
+from operator import itemgetter
 
 class equation:
-    def __init__(self,products=None,reactants=None):
-        if reactants:
-            self.reactants = list(reactants.keys())
-            self.products = list(products.values())
+    def __init__(self,products,reactants,balanced):
+        self.reactants = reactants
+        self.products = products
+
+    def __str__(self):
+        eq = ""
+        for k in range(len(self.products)):
+            if k != len(self.products)-1:
+                eq += "{}{}+".format(self.products[k].coeff,self.products[k].formula)
+            else:
+                eq += "{}{}->".format(self.products[k].coeff,self.products[k].formula)
+        for i in range(len(self.reactants)):
+            if i != len(self.reactants)-1:
+                eq += "{}{}+".format(self.reactants[i].coeff,self.reactants[i].formula)
+            else:
+                eq += "{}{}".format(self.reactants[i].coeff,self.reactants[i].formula)
+        return eq
+
+    def check_balance(self):
+        check = [[],[]]
+        for k in range(2):
+            for p_mol in [self.products,self.reactants][k]:
+                for p_ele in p_mol.components():
+                        check[k].append([p_ele.formula,p_mol.coeff*p_ele.coeff])
+        check = sorted(check,key=itemgetter(1))
+        if check[0] == check[1]:
+            return True
+        else:
+            return False
+
+
+
+water = (equation([molecule("hydrogen","H2",2),molecule("oxygen","O2")],[molecule("water","H2O",2)],True)).check_balance()
