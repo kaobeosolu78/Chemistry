@@ -1,37 +1,30 @@
-from Element import Element
+from element import Element
 
 class Molecule:
-    def __init__(self,formula=None,name=None,coeff=1):
+    def __init__(self,name=None,formula=None,coeff=1):
         if name:
-            self.name = formula
+            self.name = name
         if formula:
-            self.formula = name
-        self.coeff = coeff
-    def __add__(self,ele,eman=None):
-        return molecule(eman,self.formula+ele.formula)
-    def components(self):
+            self.formula = formula
+        self.coeff = int(coeff)
+
+    def components(self,coeff=1):
         elements = []
-        new_ele = 0
-        ele = ""
-        for part in self.formula:
-            try:
-                part = int(part)
-            except:
-                pass
-            if type(part) == str:
-                if new_ele == 0 or part == part.lower():
-                    new_ele = 1
-                    ele += part
+        for k in range(len(self.formula) + 1):
+            if self.formula[-k].upper() == self.formula[-k] and k != 0 and self.formula[-k].isalpha() != False:
+                try:
+                    g
+                except:
+                    g = -len(self.formula)
+                new = self.formula[-k:-g]
+                g = k
+                if new.isalpha() == True:
+                    elements.append(Element(new,1*coeff))
                 else:
-                    elements.append(element(ele, 1))
-                    ele = part
-                    new_ele = 1
-            elif type(part) == int:
-                elements.append(element(ele, part))
-                ele = ""
-                new_ele = 0
-        if ele != "":
-            elements.append(element(ele, 1))
+                    try:
+                        int(new[-2:])
+                        elements.append(Element(new[:-2],int(new[-2:])*coeff))
+                    except:
+                        elements.append(Element(new[:-1],int(new[-1:])*coeff))
         return elements
 
-print(molecule("water","H2O",1).components())
