@@ -1,2 +1,2 @@
-# Chemistry
+# Chemistry---Functional
 An attempt at merging the fields of Computer Science and Chemistry. Contains objects for elements, molecules and equations input molecular formulas, names, coefficients products and reactants respectively. String methods have been overloaded to properly format each objects and molecule contains a method for decomposing into component elements. Finally, equations can be balanced iteratively through the balance method and checked with .check_balance().
